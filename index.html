@@ -100,6 +100,18 @@
   ol#main li ol{
     -webkit-padding-start: 10px;
   }
+
+  .hideOL {
+	  display: none;
+  }
+
+  .glypRight {
+    float: right !important;
+  }
+
+  .glypRight:hover {
+    border: 1px solid blue;
+  }
 </style>
 <script type="text/javascript">
 $(function(){
@@ -131,7 +143,19 @@ $(function(){
       $('ol#main li ol#rel_'+s).append(strkLi);
     }
   }
+
+  $("ol li ol").each(function() {
+    	$(this).before("<span class='glyphicon glyphicon-chevron-down glypRight'>"); // oculta los ol que contienen li
+      $(this).addClass("hideOL");
+  });
+
+  $(".glypRight").click(function (e) {
+    var $elemento = $(this).parent().find("ol:first()").toggle();
+    $(this).toggleClass("glyphicon-chevron-down glyphicon-chevron-up");
+  });
+
 });
+
 function pad(alias,length){
   length = (length)? length : 10;
   var n = alias.toString();
