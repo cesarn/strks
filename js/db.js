@@ -30,3 +30,4 @@ var DB = {
   },
   ready        : 0
 }
+var hola;
