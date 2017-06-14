@@ -14,7 +14,7 @@
       </div>
       <section>
         <div class="row">
-          <ul class="sTreeV3 listsClass main" id="sTreeV3">
+          <ol class="sTreeV3 listsClass main" id="sTreeV3">
     				<li id="item_a"><div>Item a</div></li>
     				<li id="item_b">
               <div>Item b</div>
@@ -96,19 +96,44 @@
 <script src="js/db.js" charset="utf-8"></script>
 <!-- <link rel="stylesheet" href="http://camohub.github.io/jquery-sortable-lists/stylesheets/stylesheet.css"> -->
 <style media="screen">
-
-ul#sTreeV3{
+ol#sTreeV3{
   list-style-type: none;
-  border: solid 1px red;
   margin: 0; padding: 0;
 }
-ul#sTreeV3 li {
+ol#sTreeV3 li {
   background-color: lightGray;
   list-style-type: none;
   color: white;
   border: 1px solid rgba(63, 63, 63, 0.5);
   padding: 0px 0 0px 27px;
   margin: 1px 0 0 0;
+  position:relative;
+}
+ol#sTreeV3 li .find{
+  display:none;
+}
+ol#sTreeV3 li .signo,
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color: aqua;
+  margin:0 10px 0 0;
+  padding: 0 10px 0 0;
+  border: dotted 1px white;
+  border-width: 0 1px 0 0;
+}
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color:white;
+}
+ol#sTreeV3 li .id::before{
+  content:'id: ';
+  color: aqua;
+}
+ol#sTreeV3 li .desc::before{
+  content:'Desc: ';
+  color:aqua;
 }
 
 #sTreeV3 li, #sTreePlus li, ul#sortableListsBase li {
@@ -261,7 +286,7 @@ $(function(){
   //   $(this).find( item1 ).css( "background-color", "red" );
   // });
 
-  $('ul#sTreeV3 li').each(function(event){
+  $('ol#sTreeV3 li').each(function(event){
       var cntLis = $(this).find('ul[id^="rel_"] li').length;
       if(cntLis == 0){
         $(this).find('ul[id^="rel_"]').remove();
