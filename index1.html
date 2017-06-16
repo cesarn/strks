@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SortLi V3.0</title>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <div class="row">
+        <h3>Jerarquias y Estructuras V. 3.0</h3>
+      </div>
+      <section>
+        <div class="row">
+          <ol class="sTreeV3 listsClass main" id="sTreeV3">
+    				<li id="item_a"><div>Item a</div></li>
+    				<li id="item_b">
+              <div>Item b</div>
+    					<ul>
+    						<li id="item_b1">
+    							<div>Item b1</div>
+    						</li>
+    						<li id="item_b2">
+    							<div><span class="clickable">Item b2 - clickable text</span></div>
+    						</li>
+    						<li id="item_b3">
+    							<div>Item b3</div>
+    						</li>
+    						<li id="item_b4">
+    							<div>Item b4</div>
+    						</li>
+    						<li id="item_b5">
+    							<div>Item b5</div>
+    						</li>
+    					</ul>
+    				</li>
+    				<li id="item_c">
+              <div> Item C</div>
+    					<ul>
+    						<li id="item_c1" >
+    							<div>Item c1</div>
+    						</li>
+    						<li id="item_c2" >
+    							<div>Item c2</div>
+    						</li>
+    						<li id="item_c3" >
+    							<div>Item c3</div>
+    						</li>
+    						<li id="item_c4" >
+    							<div>Item c4</div>
+    						</li>
+    						<li id="item_c5" >
+    							<div>Item c5</div>
+    						</li>
+    					</ul>
+    				</li>
+    				<li id="item_d" >
+              <div>Item D</div>
+    					<ul>
+    						<li id="item_d1" >
+    							<div>Item d1</div>
+    						</li>
+    						<li id="item_d2" >
+    							<div>Item d2</div>
+    						</li>
+    						<li id="item_d3" >
+    							<div>Item d3</div>
+    						</li>
+    						<li id="item_d4" >
+    							<div>Item d4</div>
+    						</li>
+    						<li id="item_d5" >
+    							<div>Item d5</div>
+    						</li>
+    					</ul>
+    				</li>
+    				<li id="item_e">
+    					<div>Item e</div>
+    				</li>
+    				<li id="item_f">
+    					<div>Item f</div>
+    				</li>
+    			</ul>
+        </div>
+			<section>
+    </div>
+  </main>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="js/jquery-sortable-lists.js"></script>
+<script src="js/db.js" charset="utf-8"></script>
+<!-- <link rel="stylesheet" href="http://camohub.github.io/jquery-sortable-lists/stylesheets/stylesheet.css"> -->
+<style media="screen">
+ul{
+  color: gray;
+}
+ol#sTreeV3{
+  list-style-type: none;
+  margin: 0; padding: 0;
+}
+ol#sTreeV3 li {
+  background-color: rgba(253,242,3,0.12);
+  list-style-type: none;
+  color: white;
+  border: 1px solid rgba(253,242,3,0.12);
+  padding: 0px 0 0px 27px;
+  margin: 1px 0 0 0;
+  position:relative;
+}
+ol#sTreeV3 li .find{
+  display:none;
+}
+ol#sTreeV3 li .signo,
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color: blue;
+  margin:0 10px 0 0;
+  padding: 0 10px 0 0;
+  border: dotted 1px white;
+  border-width: 0 1px 0 0;
+}
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color:white;
+}
+ol#sTreeV3 li .id::before{
+  content:'id: ';
+  color: blue;
+}
+ol#sTreeV3 li .desc::before{
+  content:'Desc: ';
+  color:blue;
+}
+
+#sTreeV3 li, #sTreePlus li, ul#sortableListsBase li {
+  padding-left: 25px;
+  margin: 2px 0 2px 2px;
+  border: 1px solid lightgray;
+  background-color: lightslategray;
+  border-width: 1px 0 1px 1px;
+}
+#sTreeV3 li ul{
+  margin: 0; padding:0;
+}
+#sTreeV3 .jkTitle{
+  width: 100%;
+  font-size: 14px; line-height: 35px;
+  padding: 0 10px; color: black
+}
+#sTreeV3 .jkTitle .nodos{
+  cursor: default;
+}
+#sTreeV3 .jkTitle .codigo,
+#sTreeV3 .jkTitle .name,
+#sTreeV3 .jkTitle .descripcion{
+  margin: 0 5px 0 0; padding: 0 4px 0 0;
+  border: dotted 1px black; border-width: 0 1px 0 0;
+}
+#sTreeV3 .jkTitle .codigo::before{
+  content: 'Cod: ';
+  position: relative; float: left;
+  color: lighblack; margin: 0 3px 0 0;
+}
+
+#sTreeV3 li div {
+	padding:7px;
+	background-color:rgba(83, 243, 156, 0.65);
+}
+
+#sTreeV3 li, #sTreeV3 ul, #sTreeV3 div { border-radius: 3px; }
+
+.c1 { color:#b5e853; }
+.c2 { color:#63c0f5; }
+.c3 { color: #f77720; }
+.c4 { color: #888; }
+.c5 { color: #666667; }
+.c6 { color: rgba(0, 0, 255, 0.7);}
+
+.bgC1, .gray { background-color:#ccc; }
+.bgC2, .yellow { background-color:#ff8; }
+.bgC3, .red { background-color:#ff9999; }
+.bgC4, .blue { background-color:#aaaaff;}
+.bgC5, .green { background-color:#99ff99; }
+.bgC6, .gree2 { background-color:#bbffbb; }
+.bgC7, .brown { background-color:#c26b2b; }
+</style>
+<script type="text/javascript">
+$(function(){
+  var rel         = 3;
+  var strk        = DB.Efan.jksStrk[rel];
+  var cntNds = Object.keys(strk['nodos']).length
+  var titulo = strk['titulo'];
+  var codigo = strk['codigo'];
+  var desc   = strk['desc'];
+  var nodos  = strk['nodos'];
+  $('#sTreeV3').html('');
+  var frstDv = '<div class="jkTitle"><span class="codigo">'+codigo+'</span><span class="name">'+titulo+'</span><span class="descripcion">'+desc+'</span><a class="nodos pull-right">Nodos <span class="badge">'+cntNds+'</span></a></div>';
+  $('#sTreeV3').append(frstDv);
+  for(var i in nodos){
+    var nodo = nodos[i];
+    var parentId = nodo['parentId'];
+    var li       = nodo['li'];
+    if(parentId == ''){
+      $('#sTreeV3').append(li);
+    }else{
+      var ap = 'rel_'+parentId;
+      console.log(ap);
+      $('ul#'+ap).append(li);
+    }
+  }
+
+
+  var options = {
+    placeholderCss: {'background-color': '#ff8'},
+    hintCss: {'background-color':'#bbf'},
+    onChange: function( cEl ){
+      console.log( 'onChange' );
+    },
+    complete: function( cEl ){
+      console.log( 'complete' );
+    },
+    isAllowed: function( cEl, hint, target ){
+      if( target.data('module') === 'c' && cEl.data('module') !== 'c' ){
+        hint.css('background-color', '#ff9999');
+        return false;
+      }
+      else{
+        hint.css('background-color', '#99ff99');
+        return true;
+      }
+    },
+    opener: {
+      active: true,
+      as: 'html',
+      close: '<i class="fa fa-chevron-up c6"></i>',
+            open: '<i class="fa fa-chevron-down c6"></i>',
+            openerCss: {
+                'display': 'inline-block',
+                'float': 'left',
+                'margin-left': '-27px',
+                'margin-right': '5px',
+                'font-size': '15px',
+                'line-height':'20px'
+            }
+    },
+    ignoreClass: 'clickable'
+  };
+  var optionsPlus = {
+    insertZonePlus: true,
+    placeholderCss: {'background-color': '#ff8'},
+    hintCss: {'background-color':'#bbf'},
+    opener: {
+      active: true,
+      as: 'html',  // if as is not set plugin uses background image
+      close: '<i class="fa fa-chevron-up c6"></i>',
+      open: '<i class="fa fa-chevron-down"></i>',
+      openerCss: {
+        'display': 'inline-block',
+        'float': 'left',
+        'margin-left': '-27px',
+        'margin-right': '5px',
+        'font-size': '15px',
+        'line-height':'20px'
+      }
+    }
+  };
+
+  $('#sTreeV3').sortableLists( options );
+  $('#sTreePlus').sortableLists( optionsPlus );
+
+  $('#toArrBtn').on( 'click', function(){ console.log( $('#sTreeV3').sortableListsToArray() ); } );
+  $('#toHierBtn').on( 'click', function() { console.log( $('#sTreeV3').sortableListsToHierarchy() ); } );
+  $('#toStrBtn').on( 'click', function() { console.log( $('#sTreeV3').sortableListsToString() ); } );
+
+  $('.clickable').on('click', function(e)	{ alert('Click works fine! IgnoreClass stopped onDragStart event.'); });
+
+  // $("ul#sTreeV3 li ul li").each(function(){
+  //   // $(this).parent().css( "border", "1px solid red"); // solo guia
+  //   // $(this).parent().parent().css( "border", "1px solid blue"); // solo guia
+  //   // $(this).parent().addClass("queChow"); // oculta los ol que contienen li
+  //   var item1 = $("ul[id^='rel_']");
+  //   $(this).find( item1 ).css( "background-color", "red" );
+  // });
+
+  $('ol#sTreeV3 li').each(function(event){
+      var cntLis = $(this).find('ul[id^="rel_"] li').length;
+      if(cntLis == 0){
+        $(this).find('ul[id^="rel_"]').remove();
+        $(this).find('span.sortableListsOpener').remove();
+        // $(this).removeAttr('class');
+      }else{
+        $(this).removeAttr('class').attr('class', 'sortableListsOpen');
+        $(this).find('span.sortableListsOpener i').removeAttr('class').attr('class','fa fa-chevron-up c6');
+        $(this).find('ul[id^="rel_"]').css({'display':'block'});
+        // $(this).css({'border':'solid 1px red'});
+      }
+      return;
+    });
+
+
+
+});
+</script>
+</html>
