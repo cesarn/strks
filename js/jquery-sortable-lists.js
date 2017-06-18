@@ -933,20 +933,67 @@
 
 	};
 
+	//// toObject ////////////////////////////////////////////////////////////////////////////////////
+	// by: Lodela. June 17th 2017
+	/**
+	 * @desc jQuery plugin
+	 * @returns this to unsure chaining
+	 */
+	var genId = -1;
+	$.fn.sortableListsToObject = function(obj, parentId){
+				obj      = obj || {};
+				parentId = (parentId)? parentId : '';
+		if(parentId == ''){
+			genId = -1;
+		}
+		var order    = 0;
+		    genId ++;
+		this.children('li').each( function(){
+			var li = $(this),
+			    listItem = {},
+					id       = li.attr('id').split('epi')[1],
+					signo    = li.attr('signo'),
+					alias    = li.attr('alias'),
+					name     = li.attr('name'),
+					desc     = li.attr('desc'),
+					serchEpi   = name.toLowerCase(),
+					serachDesc = desc.toLowerCase();
+					l        = "<li id='epi"+id+"' signo='"+signo+"' alias='"+alias+"' name='"+name+"' desc='"+desc+"'><i class='find'>"+serchEpi+" "+serachDesc+"</i><div><span class='signo'>("+signo+")</span><span class='id'>"+genId+"</span><span class='name'>"+name+"</span><span class='desc'>"+desc+"</span></div><ul id='rel_"+id+"'></ul></li>";
+					// console.log(l);
+			if(undefined == obj[genId]){
+				obj[genId] = {};
+			}
+			obj[genId] = {id:id,li:l,order:order,parentId:parentId,signo:signo,name:name,desc:desc};
 
+			// console.log(genId+' '+order+' '+id+' '+parentId);
+
+			if (! id){
+				console.log( li );
+				throw 'Previous item in console.log has no id. It is necessary to create the array.';
+			}
+			listItem.id = id;
+			listItem.parentId = parentId;
+			listItem.value = li.data( 'value' );
+			listItem.alias = alias;
+			listItem.order = order;
+			listItem.li    = li;
+			li.children('ul,ol').sortableListsToObject(obj, id);
+			order ++;
+		});
+		//console.log(obj);
+		return obj;
+
+	};
 	//// toArray /////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @desc jQuery plugin
 	 * @returns this to unsure chaining
 	 */
-	$.fn.sortableListsToArray = function( arr, parentId )
-	{
+	$.fn.sortableListsToArray = function(arr, parentId){
 		arr = arr || [];
 		var order = 0;
-
-		this.children( 'li' ).each( function()
-		{
+		this.children( 'li' ).each( function(){
 			var li = $( this ),
 				listItem = {},
 				id = li.attr( 'id' );
