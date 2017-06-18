@@ -12,6 +12,17 @@
       <div class="row">
         <h3>jerarquias y estructuras V. 3.0</h3>
       </div>
+      <div class="row">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-paperclip"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="guarda">Guardar</a></li>
+            <li><a href="#" id="ctlZ">Ctl-Z</a></li>
+          </ul>
+        </div>
+      </div>
       <section>
         <div class="row">
           <ol class="sTreeV3 listsClass main" id="sTreeV3">
@@ -148,6 +159,7 @@ ol#sTreeV3 li .desc::before{
 }
 #sTreeV3 li ul{
   margin: 0; padding:0;
+  position: relative;
 }
 #sTreeV3 .jkTitle{
   width: 100%;
@@ -193,38 +205,40 @@ ol#sTreeV3 li .desc::before{
 </style>
 <script type="text/javascript">
 $(function(){
-  var rel         = 3;
-  var strk        = DB.Efan.jksStrk[rel];
-  var cntNds = Object.keys(strk['nodos']).length
-  var titulo = strk['titulo'];
-  var codigo = strk['codigo'];
-  var desc   = strk['desc'];
-  var nodos  = strk['nodos'];
-  $('#sTreeV3').html('');
-  var frstDv = '<div class="jkTitle"><span class="codigo">'+codigo+'</span><span class="name">'+titulo+'</span><span class="descripcion">'+desc+'</span><a class="nodos pull-right">Nodos <span class="badge">'+cntNds+'</span></a></div>';
-  $('#sTreeV3').append(frstDv);
-  for(var i in nodos){
-    var nodo = nodos[i];
-    var parentId = nodo['parentId'];
-    var li       = nodo['li'];
-    if(parentId == ''){
-      $('#sTreeV3').append(li);
-    }else{
-      var ap = 'rel_'+parentId;
-      console.log(ap);
-      $('ul#'+ap).append(li);
+  // console.log(DB.Efan.jksStrk[2]['nodos']);
+  var rel    = DB.olLi.Jk;
+  function constructor(){
+    var strk   = DB.jksStrk.cts[rel];
+    var cntNds = Object.keys(strk['nodos']).length
+    var titulo = strk['titulo'];
+    var codigo = strk['codigo'];
+    var desc   = strk['desc'];
+    var nodos  = strk['nodos'];
+    $('#sTreeV3').html('');
+    var frstDv = '<div class="jkTitle"><span class="codigo">'+codigo+'</span><span class="name">'+titulo+'</span><span class="descripcion">'+desc+'</span><a class="nodos pull-right">Nodos <span class="badge">'+cntNds+'</span></a></div>';
+    $('#sTreeV3').append(frstDv);
+    for(var i in nodos){
+      var nodo = nodos[i];
+      var parentId = nodo['parentId'];
+      var li       = nodo['li'];
+      if(parentId == ''){
+        $('#sTreeV3').append(li);
+      }else{
+        var ap = 'rel_'+parentId;
+        $('ul#'+ap).append(li);
+      }
     }
   }
-
-
+  constructor();
   var options = {
     placeholderCss: {'background-color': '#ff8'},
     hintCss: {'background-color':'#bbf'},
     onChange: function( cEl ){
       console.log( 'onChange' );
     },
-    complete: function( cEl ){
+    complete: function( cEl,hint){
       console.log( 'complete' );
+      historial();
     },
     isAllowed: function( cEl, hint, target ){
       if( target.data('module') === 'c' && cEl.data('module') !== 'c' ){
@@ -303,7 +317,36 @@ $(function(){
       }
       return;
     });
+  var historico = Object.keys(DB.historico).length;
+  if(historico == 0){
+    DB.historico[0] = DB.jksStrk.cts[rel].nodos;
+  }
+  console.log(DB.historico);
 
+  $('#guarda').on('click',function(e){
+    e.preventDefault();
+    DB.historico = {};
+    var object = $('#sTreeV3').sortableListsToObject();
+    DB.jksStrk.cts[rel].nodos = {};
+    var nuevosNodos = DB.jksStrk.cts[rel].nodos = object;
+    DB.historico[0] = nuevosNodos;
+    // console.log(nuevosNodos);
+    constructor();
+  });
+  function historial(save){
+        save = (save)? save : 'ctlZ';
+    var array = $('#sTreeV3').sortableListsToArray();
+    var object = $('#sTreeV3').sortableListsToObject();
+    if(save != 'ctlZ'){
+      console.log(object);
+    }
+    var historico = Object.keys(DB.historico).length;
+    console.log(historico);
+    if(undefined == DB.historico[historico]){
+      DB.historico[historico] = {};
+    }DB.historico[historico] = object;
+    console.log(DB.historico);
+  }
 
 
 });
