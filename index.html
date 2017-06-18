@@ -10,7 +10,7 @@
   <main>
     <div class="container">
       <div class="row">
-        <h3>jerarquias y estructuras</h3>
+        <h3>Jerarquias y Estructuras</h3>
       </div>
       <div class="row">
         <ol id="main"></ol>
@@ -25,7 +25,8 @@
 <style media="screen">
   ol#main{
     width: 90%; min-height: 200px;
-    border: solid 1px rgba(100, 100, 100, 0.5);
+    border: solid 1px rgba(2, 249, 253,1.0);
+    background: rgba(2, 249, 253,0.1);
     list-style: none; margin: 0; padding: 10px 5px;
     border-radius: 4px;
     overflow: hidden;
@@ -35,7 +36,7 @@
     position: relative; float: right;
     margin: 0 -5px 0 0;
     padding: 0 10px;
-    border: solid 1px rgba(100, 100, 100, 0.5);
+    border: solid 1px rgba(2, 249, 253,1.0);
     border-width: 1px;
     border-radius: 4px;
     overflow: hidden;
@@ -51,42 +52,65 @@
   ol#main li .signo{
     position: relative; float: left;
     line-height: 28px;
-    font-size: 12px; color: grey;
+    font-size: 12px; color: blue;
     font-size: 11px;
   }
   ol#main li .signo::after,
   ol#main li .ndId::after{
     content: '';
     position: relative; float: right;
-    height: 16px; border: dotted 1px grey;
+    height: 16px; border: dotted 1px fuchsia;
     border-width: 0 1px 0 0;
     margin: 6px -5px 0 0;
   }
+  ol#main li .descripcion::after{
+    content: '';
+    position: relative; float: left;
+    height: 16px; border: dotted 1px fuchsia;
+    border-width: 0 1px 0 0;
+    margin: 6px 7px 0 0;
+  }
   ol#main li .descripcion::before{
     content: 'Desc: ';
-    color: gray;
+    color: blue;
   }
   ol#main li .ndId::before{
     content: 'Id: ';
-    color: gray;
+    /*color: rgba(253, 2, 154,1);*/
+    color: blue;
   }
   ol#main li .name::before{
     content: 'Nom: ';
-    color: gray;
+    color: blue;
   }
-
+  ol#rel_0 li.strk{
+    background: pink;
+  }
   ol#main li p{
     position: relative;
     float: left;
     display:block;
     margin: 0 5px 0 0; padding: 0;
     line-height: 28px;
+
   }
   ol#main li i.find{
     display: none;
   }
   ol#main li ol{
     -webkit-padding-start: 10px;
+  }
+
+  .hideOL {
+	  display: none;
+  }
+
+  .glypRight {
+    float: right !important;
+  }
+
+  .glypRight:hover {
+    border: 1px solid blue;
   }
 </style>
 <script type="text/javascript">
@@ -119,7 +143,19 @@ $(function(){
       $('ol#main li ol#rel_'+s).append(strkLi);
     }
   }
+
+  $("ol li ol").each(function() {
+    	$(this).before("<span class='glyphicon glyphicon-chevron-down glypRight'>"); // oculta los ol que contienen li
+      $(this).addClass("hideOL");
+  });
+
+  $(".glypRight").click(function (e) {
+    var $elemento = $(this).parent().find("ol:first()").toggle();
+    $(this).toggleClass("glyphicon-chevron-down glyphicon-chevron-up");
+  });
+
 });
+
 function pad(alias,length){
   length = (length)? length : 10;
   var n = alias.toString();
