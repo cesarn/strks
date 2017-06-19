@@ -324,12 +324,15 @@ $(function(){
   console.log(DB.jksStrk.historico);
 
   $('#guarda').on('click',function(e){
+    var tempObj = DB.jksStrk.historico['0'];
+    //console.log(tempObj);
     e.preventDefault();
     var historico = DB.jksStrk.historico;
     var cntHist = Object.keys(historico).length;
     console.log(cntHist);
 
     DB.jksStrk.historico = {};
+<<<<<<< HEAD
     /*este actualiza la base de datos con la nueva info*/
     var object = $('#sTreeV3').sortableListsToObject();
     DB.jksStrk.cts[rel].nodos = {};
@@ -339,6 +342,14 @@ $(function(){
     /*borrar los nodos del 1 en adelante del historico:*/
     // DB.jksStrk.historico = {}
 
+=======
+    DB.jksStrk.historico[0] = tempObj;
+    var object = $('#sTreeV3').sortableListsToObject();
+    DB.jksStrk.cts[rel].nodos = {};
+    var nuevosNodos = DB.jksStrk.cts[rel].nodos = object;
+    DB.jksStrk.historico[0] = nuevosNodos;
+    //console.log(DB.jksStrk.historico);
+>>>>>>> 037c3091c8bc6f3f6bdeca7b69ffab301c00a39f
     constructor();
   });
 
