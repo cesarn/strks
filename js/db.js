@@ -14,6 +14,7 @@ var DB = {
     div        : {},
     emp        : {},
     tip        : {},
+    historico  : {},
     epiHomlg   : {},
     definidor  : {
       Centro          : '',
@@ -28,7 +29,6 @@ var DB = {
   Efan         : {
     jksStrk    : {}
   },
-  historico   :{},
   olLi        : {
     Jk        :2,
     epiActive : {

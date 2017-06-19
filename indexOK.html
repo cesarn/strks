@@ -317,36 +317,37 @@ $(function(){
       }
       return;
     });
-  var historico = Object.keys(DB.historico).length;
+  var historico = Object.keys(DB.jksStrk.historico).length;
   if(historico == 0){
-    DB.historico[0] = DB.jksStrk.cts[rel].nodos;
+    DB.jksStrk.historico[0] = DB.jksStrk.cts[rel].nodos;
   }
-  console.log(DB.historico);
+  console.log(DB.jksStrk.historico);
 
   $('#guarda').on('click',function(e){
     e.preventDefault();
-    DB.historico = {};
+    DB.jksStrk.historico = {};
     var object = $('#sTreeV3').sortableListsToObject();
     DB.jksStrk.cts[rel].nodos = {};
     var nuevosNodos = DB.jksStrk.cts[rel].nodos = object;
-    DB.historico[0] = nuevosNodos;
+    DB.jksStrk.historico[0] = nuevosNodos;
     // console.log(nuevosNodos);
     constructor();
   });
+
   function historial(save){
-        save = (save)? save : 'ctlZ';
-    var array = $('#sTreeV3').sortableListsToArray();
-    var object = $('#sTreeV3').sortableListsToObject();
-    if(save != 'ctlZ'){
-      console.log(object);
-    }
-    var historico = Object.keys(DB.historico).length;
-    console.log(historico);
-    if(undefined == DB.historico[historico]){
-      DB.historico[historico] = {};
-    }DB.historico[historico] = object;
-    console.log(DB.historico);
+      save = (save)? save : 'ctlZ';
+  var object = $('#sTreeV3').sortableListsToObject();
+  if(save != 'ctlZ'){
+    console.log(object);
   }
+  var historico = DB.jksStrk.historico;
+  var cntHist   = Object.keys(historico).length;
+  // console.log(cntHist);
+  if(undefined == historico[cntHist]){
+  historico[cntHist] = {};
+  }historico[cntHist] = object;
+  console.log(historico);
+}
 
 
 });
