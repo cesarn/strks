@@ -960,10 +960,10 @@
 					serachDesc = desc.toLowerCase();
 					l        = "<li id='epi"+id+"' signo='"+signo+"' alias='"+alias+"' name='"+name+"' desc='"+desc+"'><i class='find'>"+serchEpi+" "+serachDesc+"</i><div><span class='signo'>("+signo+")</span><span class='id'>"+genId+"</span><span class='name'>"+name+"</span><span class='desc'>"+desc+"</span></div><ul id='rel_"+id+"'></ul></li>";
 					// console.log(l);
-			if(undefined == obj[genId]){
-				obj[genId] = {};
+			if(undefined == obj[id]){
+				obj[id] = {};
 			}
-			obj[genId] = {id:id,li:l,order:order,parentId:parentId,signo:signo,name:name,desc:desc};
+			obj[id] = {id:id,li:l,order:order,parentId:parentId,signo:signo,name:name,desc:desc};
 
 			// console.log(genId+' '+order+' '+id+' '+parentId);
 
