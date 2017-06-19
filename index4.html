@@ -12,20 +12,9 @@
       <div class="row">
         <h3>Jerarquias y Estructuras V. 3.0</h3>
       </div>
-      <div class="row">
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-paperclip"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#" id="guarda">Guardar</a></li>
-            <li><a href="#" id="ctlZ">Ctl-Z</a></li>
-          </ul>
-        </div>
-      </div>
       <section>
         <div class="row">
-          <ul class="sTreeV3 listsClass main" id="sTreeV3">
+          <ol class="sTreeV3 listsClass main" id="sTreeV3">
     				<li id="item_a"><div>Item a</div></li>
     				<li id="item_b">
               <div>Item b</div>
@@ -107,31 +96,58 @@
 <script src="js/db.js" charset="utf-8"></script>
 <!-- <link rel="stylesheet" href="http://camohub.github.io/jquery-sortable-lists/stylesheets/stylesheet.css"> -->
 <style media="screen">
-
-ul#sTreeV3{
+ul{
+  color: gray;
+}
+ol#sTreeV3{
   list-style-type: none;
-  border: solid 1px rgba(3,244,253,0.12);
   margin: 0; padding: 0;
 }
-ul#sTreeV3 li {
-  background-color: rgba(253,242,3,0.12);
+ol#sTreeV3 li {
+  background-color: rgba(3,244,253,0.12);
   list-style-type: none;
   color: white;
-  border: 1px solid rgba(253,242,3,0.12);
+  border: 1px solid rgba(3,244,253,0.12);
   padding: 0px 0 0px 27px;
   margin: 1px 0 0 0;
+  position:relative;
+}
+ol#sTreeV3 li .find{
+  display:none;
+}
+ol#sTreeV3 li .signo,
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color: blue;
+  margin:0 10px 0 0;
+  padding: 0 10px 0 0;
+  border: dotted 1px white;
+  border-width: 0 1px 0 0;
+}
+ol#sTreeV3 li .id,
+ol#sTreeV3 li .desc,
+ol#sTreeV3 li .name{
+  color:white;
+}
+ol#sTreeV3 li .id::before{
+  content:'id: ';
+  color: blue;
+}
+ol#sTreeV3 li .desc::before{
+  content:'Desc: ';
+  color:blue;
 }
 
 #sTreeV3 li, #sTreePlus li, ul#sortableListsBase li {
   padding-left: 25px;
   margin: 2px 0 2px 2px;
-  border: 1px solid rgba(253,242,3,0.10);;
+  border: 1px solid lightgray;
   background-color: lightslategray;
   border-width: 1px 0 1px 1px;
 }
 #sTreeV3 li ul{
   margin: 0; padding:0;
-  position: relative;
 }
 #sTreeV3 .jkTitle{
   width: 100%;
@@ -155,7 +171,7 @@ ul#sTreeV3 li {
 
 #sTreeV3 li div {
 	padding:7px;
-	background-color:rgba(249, 158, 0, 0.56)
+	background-color:rgba(30, 255, 0, 0.69);
 }
 
 #sTreeV3 li, #sTreeV3 ul, #sTreeV3 div { border-radius: 3px; }
@@ -165,7 +181,7 @@ ul#sTreeV3 li {
 .c3 { color: #f77720; }
 .c4 { color: #888; }
 .c5 { color: #666667; }
-.c6 { color: rgba(255,96,0,1);}
+.c6 { color: rgba(0, 0, 255, 0.7);}
 
 .bgC1, .gray { background-color:#ccc; }
 .bgC2, .yellow { background-color:#ff8; }
@@ -177,40 +193,38 @@ ul#sTreeV3 li {
 </style>
 <script type="text/javascript">
 $(function(){
-  // console.log(DB.Efan.jksStrk[2]['nodos']);
-  var rel    = DB.olLi.Jk;
-  function constructor(){
-    var strk   = DB.jksStrk.cts[rel];
-    var cntNds = Object.keys(strk['nodos']).length
-    var titulo = strk['titulo'];
-    var codigo = strk['codigo'];
-    var desc   = strk['desc'];
-    var nodos  = strk['nodos'];
-    $('#sTreeV3').html('');
-    var frstDv = '<div class="jkTitle"><span class="codigo">'+codigo+'</span><span class="name">'+titulo+'</span><span class="descripcion">'+desc+'</span><a class="nodos pull-right">Nodos <span class="badge">'+cntNds+'</span></a></div>';
-    $('#sTreeV3').append(frstDv);
-    for(var i in nodos){
-      var nodo = nodos[i];
-      var parentId = nodo['parentId'];
-      var li       = nodo['li'];
-      if(parentId == ''){
-        $('#sTreeV3').append(li);
-      }else{
-        var ap = 'rel_'+parentId;
-        $('ul#'+ap).append(li);
-      }
+  var rel         = 3;
+  var strk        = DB.Efan.jksStrk[rel];
+  var cntNds = Object.keys(strk['nodos']).length
+  var titulo = strk['titulo'];
+  var codigo = strk['codigo'];
+  var desc   = strk['desc'];
+  var nodos  = strk['nodos'];
+  $('#sTreeV3').html('');
+  var frstDv = '<div class="jkTitle"><span class="codigo">'+codigo+'</span><span class="name">'+titulo+'</span><span class="descripcion">'+desc+'</span><a class="nodos pull-right">Nodos <span class="badge">'+cntNds+'</span></a></div>';
+  $('#sTreeV3').append(frstDv);
+  for(var i in nodos){
+    var nodo = nodos[i];
+    var parentId = nodo['parentId'];
+    var li       = nodo['li'];
+    if(parentId == ''){
+      $('#sTreeV3').append(li);
+    }else{
+      var ap = 'rel_'+parentId;
+      console.log(ap);
+      $('ul#'+ap).append(li);
     }
   }
-  constructor();
+
+
   var options = {
     placeholderCss: {'background-color': '#ff8'},
     hintCss: {'background-color':'#bbf'},
     onChange: function( cEl ){
       console.log( 'onChange' );
     },
-    complete: function( cEl,hint){
+    complete: function( cEl ){
       console.log( 'complete' );
-      historial();
     },
     isAllowed: function( cEl, hint, target ){
       if( target.data('module') === 'c' && cEl.data('module') !== 'c' ){
@@ -275,7 +289,7 @@ $(function(){
   //   $(this).find( item1 ).css( "background-color", "red" );
   // });
 
-  $('ul#sTreeV3 li').each(function(event){
+  $('ol#sTreeV3 li').each(function(event){
       var cntLis = $(this).find('ul[id^="rel_"] li').length;
       if(cntLis == 0){
         $(this).find('ul[id^="rel_"]').remove();
@@ -289,36 +303,7 @@ $(function(){
       }
       return;
     });
-  var historico = Object.keys(DB.historico).length;
-  if(historico == 0){
-    DB.historico[0] = DB.jksStrk.cts[rel].nodos;
-  }
-  console.log(DB.historico);
 
-  $('#guarda').on('click',function(e){
-    e.preventDefault();
-    DB.historico = {};
-    var object = $('#sTreeV3').sortableListsToObject();
-    DB.jksStrk.cts[rel].nodos = {};
-    var nuevosNodos = DB.jksStrk.cts[rel].nodos = object;
-    DB.historico[0] = nuevosNodos;
-    // console.log(nuevosNodos);
-    constructor();
-  });
-  function historial(save){
-        save = (save)? save : 'ctlZ';
-    var array = $('#sTreeV3').sortableListsToArray();
-    var object = $('#sTreeV3').sortableListsToObject();
-    if(save != 'ctlZ'){
-      console.log(object);
-    }
-    var historico = Object.keys(DB.historico).length;
-    console.log(historico);
-    if(undefined == DB.historico[historico]){
-      DB.historico[historico] = {};
-    }DB.historico[historico] = object;
-    console.log(DB.historico);
-  }
 
 
 });
